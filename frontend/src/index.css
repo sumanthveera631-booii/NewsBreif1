@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #0B0F19;
+  --color-surface-secondary: #131A2A;
+  --color-surface-card: #1A2235;
+  --color-surface-elevated: #212B42;
+
+  --color-brand-primary: #6366F1;
+  --color-brand-secondary: #8B5CF6;
+  --color-brand-success: #22C55E;
+  --color-brand-warning: #F59E0B;
+  --color-brand-danger: #EF4444;
+  --color-brand-info: #06B6D4;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Source Serif 4', serif;
+}
+
+/* Base Styles */
+:root {
+  --background: #0B0F19;
+  --foreground: #F3F4F6;
+  
+  /* Accent variable changed dynamically via exam preference class */
+  --accent: #6366F1;
+  --accent-glow: rgba(99, 102, 241, 0.15);
+  --accent-rgb: 99, 102, 241;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Exam Mode Accent Swappers */
+.theme-upsc {
+  --accent: #6366F1;
+  --accent-glow: rgba(99, 102, 241, 0.2);
+  --accent-rgb: 99, 102, 241;
+}
+
+.theme-banking {
+  --accent: #22C55E;
+  --accent-glow: rgba(34, 197, 94, 0.2);
+  --accent-rgb: 34, 197, 94;
+}
+
+.theme-ssc {
+  --accent: #F59E0B;
+  --accent-glow: rgba(245, 158, 11, 0.2);
+  --accent-rgb: 245, 158, 11;
+}
+
+/* Custom Glassmorphism Utility */
+.glass-panel {
+  background: rgba(26, 34, 53, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-elevated {
+  background: rgba(33, 43, 66, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Custom Neo-Skeuomorphism Utility */
+.neo-card {
+  background: #1A2235;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+}
+
+.neo-card-elevated {
+  background: #212B42;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 10px 20px -5px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 1.25rem;
+}
+
+.neo-btn {
+  background: #1A2235;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neo-btn:active {
+  box-shadow: 
+    0 0 0 rgba(0, 0, 0, 0),
+    inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px);
+}
+
+.neo-btn-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, rgba(139, 92, 246, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.neo-btn-accent:active {
+  box-shadow: 
+    0 0 0 rgba(0, 0, 0, 0),
+    inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  transform: translateY(1.5px);
+}
+
+/* Micro-animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
+  }
+}
+
+.glow-active {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Custom Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Reading font styles */
+.serif-article {
+  font-family: var(--font-serif);
+  line-height: 1.75;
+}
+.serif-article p {
+  margin-bottom: 1.5rem;
+}
