@@ -25,9 +25,11 @@ export function AuthProvider({ children }) {
     fetchSession();
   }, []);
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "https://newsbrief-backend-j0xu.onrender.com";
+
   const loginGoogle = () => {
     // Redirect to backend OAuth route
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
   };
 
   const loginLocal = async (email, password) => {
