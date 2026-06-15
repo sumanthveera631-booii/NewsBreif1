@@ -17,6 +17,21 @@ router.post('/register', async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user) {
+      if (!user.password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        if (!user.authProviders.includes('local')) {
+          user.authProviders.push('local');
+        }
+        await user.save();
+
+        return req.login(user, (err) => {
+          if (err) return res.status(500).json({ error: 'Server error during login' });
+          const userObj = user.toObject();
+          delete userObj.password;
+          return res.json({ success: true, user: userObj });
+        });
+      }
       return res.status(400).json({ error: 'User already exists' });
     }
 
@@ -26,7 +41,8 @@ router.post('/register', async (req, res) => {
     user = await User.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      authProviders: ['local']
     });
 
     req.login(user, (err) => {
@@ -46,7 +62,9 @@ router.post('/register', async (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) return res.status(500).json({ error: 'Server error' });
-    if (!user) return res.status(400).json({ error: info.message || 'Invalid credentials' });
+    if (!user) {
+      return res.status(400).json({ error: info?.message || 'Invalid credentials' });
+    }
     
     req.login(user, (err) => {
       if (err) return res.status(500).json({ error: 'Server error during login' });

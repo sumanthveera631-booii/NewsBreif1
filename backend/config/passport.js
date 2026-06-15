@@ -53,7 +53,7 @@ passport.use(
         }
 
         if (!user.password) {
-          return done(null, false, { message: 'Please login using Google' });
+          return done(null, false, { message: 'This account was created with Google login and has no password. Use Google sign-in or set a password via the sign-up flow.' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);

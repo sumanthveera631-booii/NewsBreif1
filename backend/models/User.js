@@ -4,6 +4,8 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String }, // For local authentication
+  googleId: { type: String },
+  authProviders: { type: [String], default: [] },
   image: { type: String },
   examPreference: { 
     type: String, 
