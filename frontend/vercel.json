@@ -1,8 +1,13 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://newsbrief-backend-j0xu.onrender.com/api/$1"
+      "source": "/api/:path*",
+      "destination": "https://newsbrief-backend-j0xu.onrender.com/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }
